@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AiModelDepartmentMapper">
+    
+    <resultMap type="AiModelDepartment" id="AiModelDepartmentResult">
+        <result property="id"    column="id"    />
+        <result property="modelId"    column="model_id"    />
+        <result property="departmentId"    column="department_id"    />
+        <result property="weight"    column="weight"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAiModelDepartmentVo">
+        select id, model_id, department_id, weight, create_time from ai_model_department
+    </sql>
+
+    <select id="selectAiModelDepartmentList" parameterType="AiModelDepartment" resultMap="AiModelDepartmentResult">
+        <include refid="selectAiModelDepartmentVo"/>
+        <where>  
+            <if test="modelId != null "> and model_id = #{modelId}</if>
+            <if test="departmentId != null "> and department_id = #{departmentId}</if>
+        </where>
+    </select>
+    
+    <select id="selectAiModelDepartmentById" parameterType="Long" resultMap="AiModelDepartmentResult">
+        <include refid="selectAiModelDepartmentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAiModelDepartment" parameterType="AiModelDepartment" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_model_department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">model_id,</if>
+            <if test="departmentId != null">department_id,</if>
+            <if test="weight != null">weight,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">#{modelId},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAiModelDepartment" parameterType="AiModelDepartment">
+        update ai_model_department
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="modelId != null">model_id = #{modelId},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAiModelDepartmentById" parameterType="Long">
+        delete from ai_model_department where id = #{id}
+    </delete>
+
+    <delete id="deleteAiModelDepartmentByIds" parameterType="String">
+        delete from ai_model_department where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

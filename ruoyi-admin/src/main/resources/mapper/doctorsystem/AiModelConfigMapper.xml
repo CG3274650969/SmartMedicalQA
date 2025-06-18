@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AiModelConfigMapper">
+    
+    <resultMap type="AiModelConfig" id="AiModelConfigResult">
+        <result property="id"    column="id"    />
+        <result property="modelId"    column="model_id"    />
+        <result property="apiEndpoint"    column="api_endpoint"    />
+
+        <result property="domain"    column="domain"    />
+        <result property="appid"    column="app_id"    />
+        <result property="apiSecret"    column="api_secret"    />
+
+        <result property="apiKey"    column="api_key"    />
+        <result property="apiVersion"    column="api_version"    />
+        <result property="temperature"    column="temperature"    />
+        <result property="maxTokens"    column="max_tokens"    />
+        <result property="timeout"    column="timeout"    />
+        <result property="rateLimit"    column="rate_limit"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAiModelConfigVo">
+        select id, model_id, api_endpoint, domain, app_id, api_secret, api_key, api_version, temperature, max_tokens, timeout, rate_limit, create_time, update_time from ai_model_config
+    </sql>
+
+    <select id="selectAiModelConfigList" parameterType="AiModelConfig" resultMap="AiModelConfigResult">
+        <include refid="selectAiModelConfigVo"/>
+        <where>  
+            <if test="modelId != null "> and model_id = #{modelId}</if>
+            <if test="apiEndpoint != null  and apiEndpoint != ''"> and api_endpoint = #{apiEndpoint}</if>
+        </where>
+    </select>
+    
+    <select id="selectAiModelConfigById" parameterType="Long" resultMap="AiModelConfigResult">
+        <include refid="selectAiModelConfigVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAiModelConfig" parameterType="AiModelConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_model_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">model_id,</if>
+            <if test="apiEndpoint != null and apiEndpoint != ''">api_endpoint,</if>
+
+            <if test="domain != null">domain,</if>
+            <if test="appid != null">app_id,</if>
+            <if test="apiSecret != null">api_secret,</if>
+
+            <if test="apiKey != null">api_key,</if>
+            <if test="apiVersion != null">api_version,</if>
+            <if test="temperature != null">temperature,</if>
+            <if test="maxTokens != null">max_tokens,</if>
+            <if test="timeout != null">timeout,</if>
+            <if test="rateLimit != null">rate_limit,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">#{modelId},</if>
+            <if test="apiEndpoint != null and apiEndpoint != ''">#{apiEndpoint},</if>
+
+            <if test="domain != null">#{domain},</if>
+            <if test="appid != null">#{appid},</if>
+            <if test="apiSecret != null">#{apiSecret},</if>
+
+            <if test="apiKey != null">#{apiKey},</if>
+            <if test="apiVersion != null">#{apiVersion},</if>
+            <if test="temperature != null">#{temperature},</if>
+            <if test="maxTokens != null">#{maxTokens},</if>
+            <if test="timeout != null">#{timeout},</if>
+            <if test="rateLimit != null">#{rateLimit},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAiModelConfig" parameterType="AiModelConfig">
+        update ai_model_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="modelId != null">model_id = #{modelId},</if>
+            <if test="apiEndpoint != null and apiEndpoint != ''">api_endpoint = #{apiEndpoint},</if>
+
+            <if test="domain != null">domain = #{domain},</if>
+            <if test="appid != null">app_id = #{appid},</if>
+            <if test="apiSecret != null">api_secret = #{apiSecret},</if>
+
+            <if test="apiKey != null">api_key = #{apiKey},</if>
+            <if test="apiVersion != null">api_version = #{apiVersion},</if>
+            <if test="temperature != null">temperature = #{temperature},</if>
+            <if test="maxTokens != null">max_tokens = #{maxTokens},</if>
+            <if test="timeout != null">timeout = #{timeout},</if>
+            <if test="rateLimit != null">rate_limit = #{rateLimit},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAiModelConfigById" parameterType="Long">
+        delete from ai_model_config where id = #{id}
+    </delete>
+
+    <delete id="deleteAiModelConfigByIds" parameterType="String">
+        delete from ai_model_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

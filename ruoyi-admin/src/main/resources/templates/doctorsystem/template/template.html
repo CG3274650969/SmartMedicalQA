@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('AI提示词模板列表')" />
+    <style>
+        .text-ellipsis {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+            display: inline-block;
+        }
+        .text-ellipsis:hover {
+            white-space: normal;
+            overflow: visible;
+            position: absolute;
+            z-index: 1000;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <label>模型ID：</label>
+                            <input type="text" name="modelId"/>
+                        </li>
+                        <li>
+                            <label>模板名称：</label>
+                            <input type="text" name="templateName"/>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="doctorsystem:template:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="doctorsystem:template:edit">
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="doctorsystem:template:remove">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="doctorsystem:template:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('doctorsystem:template:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('doctorsystem:template:remove')}]];
+    var prefix = ctx + "doctorsystem/template";
+
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "AI提示词模板",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '模板ID',
+                    visible: false
+                },
+                {
+                    field: 'modelId',
+                    title: '模型ID'
+                },
+                {
+                    field: 'templateName',
+                    title: '模板名称'
+                },
+                {
+                    field: 'templateContent',
+                    title: '模板内容',
+                    formatter: function(value, row, index) {
+                        return '<span class="text-ellipsis" title="' + value + '">' + value + '</span>';
+                    }
+                },
+                {
+                    field: 'variables',
+                    title: '可用变量列表'
+                },
+                {
+                    field: 'description',
+                    title: '模板描述'
+                },
+                {
+                    field: 'isDefault',
+                    title: '是否默认(0否,1是)'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

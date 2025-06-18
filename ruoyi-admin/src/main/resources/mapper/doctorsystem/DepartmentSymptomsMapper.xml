@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.DepartmentSymptomsMapper">
+    
+    <resultMap type="DepartmentSymptoms" id="DepartmentSymptomsResult">
+        <result property="id"    column="id"    />
+        <result property="departmentId"    column="department_id"    />
+        <result property="symptomName"    column="symptom_name"    />
+        <result property="description"    column="description"    />
+        <result property="commonCauses"    column="common_causes"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectDepartmentSymptomsVo">
+        select id, department_id, symptom_name, description, common_causes, order_num, create_time from department_symptoms
+    </sql>
+
+    <select id="selectDepartmentSymptomsList" parameterType="DepartmentSymptoms" resultMap="DepartmentSymptomsResult">
+        <include refid="selectDepartmentSymptomsVo"/>
+        <where>  
+            <if test="departmentId != null "> and department_id = #{departmentId}</if>
+            <if test="symptomName != null  and symptomName != ''"> and symptom_name like concat('%', #{symptomName}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="commonCauses != null  and commonCauses != ''"> and common_causes = #{commonCauses}</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+        </where>
+    </select>
+    
+    <select id="selectDepartmentSymptomsById" parameterType="Long" resultMap="DepartmentSymptomsResult">
+        <include refid="selectDepartmentSymptomsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDepartmentSymptoms" parameterType="DepartmentSymptoms" useGeneratedKeys="true" keyProperty="id">
+        insert into department_symptoms
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="departmentId != null">department_id,</if>
+            <if test="symptomName != null and symptomName != ''">symptom_name,</if>
+            <if test="description != null">description,</if>
+            <if test="commonCauses != null">common_causes,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="symptomName != null and symptomName != ''">#{symptomName},</if>
+            <if test="description != null">#{description},</if>
+            <if test="commonCauses != null">#{commonCauses},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDepartmentSymptoms" parameterType="DepartmentSymptoms">
+        update department_symptoms
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+            <if test="symptomName != null and symptomName != ''">symptom_name = #{symptomName},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="commonCauses != null">common_causes = #{commonCauses},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDepartmentSymptomsById" parameterType="Long">
+        delete from department_symptoms where id = #{id}
+    </delete>
+
+    <delete id="deleteDepartmentSymptomsByIds" parameterType="String">
+        delete from department_symptoms where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

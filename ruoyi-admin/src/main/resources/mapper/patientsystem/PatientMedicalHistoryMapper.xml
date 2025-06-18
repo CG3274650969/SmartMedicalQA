@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PatientMedicalHistoryMapper">
+    
+    <resultMap type="PatientMedicalHistory" id="PatientMedicalHistoryResult">
+        <result property="id"    column="id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="historyType"    column="history_type"    />
+        <result property="name"    column="name"    />
+        <result property="startDate"    column="start_date"    />
+        <result property="endDate"    column="end_date"    />
+        <result property="description"    column="description"    />
+        <result property="severity"    column="severity"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPatientMedicalHistoryVo">
+        select id, patient_id, history_type, name, start_date, end_date, description, severity, create_time from patient_medical_history
+    </sql>
+
+    <select id="selectPatientMedicalHistoryList" parameterType="PatientMedicalHistory" resultMap="PatientMedicalHistoryResult">
+        <include refid="selectPatientMedicalHistoryVo"/>
+        <where>  
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="historyType != null "> and history_type = #{historyType}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="startDate != null "> and start_date = #{startDate}</if>
+            <if test="endDate != null "> and end_date = #{endDate}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="severity != null  and severity != ''"> and severity = #{severity}</if>
+        </where>
+    </select>
+    
+    <select id="selectPatientMedicalHistoryById" parameterType="Long" resultMap="PatientMedicalHistoryResult">
+        <include refid="selectPatientMedicalHistoryVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPatientMedicalHistory" parameterType="PatientMedicalHistory" useGeneratedKeys="true" keyProperty="id">
+        insert into patient_medical_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">patient_id,</if>
+            <if test="historyType != null">history_type,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="endDate != null">end_date,</if>
+            <if test="description != null">description,</if>
+            <if test="severity != null">severity,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">#{patientId},</if>
+            <if test="historyType != null">#{historyType},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="startDate != null">#{startDate},</if>
+            <if test="endDate != null">#{endDate},</if>
+            <if test="description != null">#{description},</if>
+            <if test="severity != null">#{severity},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePatientMedicalHistory" parameterType="PatientMedicalHistory">
+        update patient_medical_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="historyType != null">history_type = #{historyType},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="severity != null">severity = #{severity},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePatientMedicalHistoryById" parameterType="Long">
+        delete from patient_medical_history where id = #{id}
+    </delete>
+
+    <delete id="deletePatientMedicalHistoryByIds" parameterType="String">
+        delete from patient_medical_history where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

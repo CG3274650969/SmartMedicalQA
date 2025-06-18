@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--360浏览器优先以webkit内核解析-->
-    <title>若依介绍</title>
+    <title>智能医疗问答系统介绍</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
@@ -22,8 +22,8 @@
             <br>
         </div>
         <div class="col-sm-5">
-            <h2>若依后台管理框架</h2>
-            <p>一直想做一款后台管理系统，看了很多优秀的开源项目但是发现没有合适自己的。于是利用空闲休息时间开始自己写一套后台系统。如此有了若依管理系统。，她可以用于所有的Web应用程序，如<b>网站管理后台</b>，<b>网站会员中心</b>，<b>CMS</b>，<b>CRM</b>，<b>OA</b>等等，当然，您也可以对她进行深度定制，以做出更强系统。所有前端后台代码封装过后十分精简易上手，出错概率低。同时支持移动客户端访问。系统会陆续更新一些实用功能。</p>
+            <h2>智能医疗问答系统框架</h2>
+			<p>智能医疗问答系统是一套集<b>患者管理</b>、<b>医生模型管理</b>、<b>科室挂号</b>、<b>模型提示词配置</b>、<b>智能问诊</b>以及<b>对话记录管理</b>于一体的综合性医疗服务平台。系统整体采用前后端分离架构，后端基于Ruoyi权限管理框架，前端使用Vue.js构建交互界面，具有良好的可扩展性与稳定性。用户可通过语音或文本方式输入症状信息，系统自动调用与对应科室挂接的大语言模型进行智能问答，并根据配置的专业提示词提升问答准确性和上下文连贯性。同时，系统支持多模型管理、患者档案维护、智能挂号以及历史问诊记录的存储与查询，全面提升医疗服务的智能化水平和用户体验，助力构建<b>高效、安全、可监管</b>的新型智能医疗服务模式。</p>
             <p>
                 <b>当前版本：</b><span>v[[${version}]]</span>
             </p>
@@ -32,12 +32,12 @@
             </p>
             <br>
             <p>
-                <a class="btn btn-success btn-outline" href="https://gitee.com/y_project/RuoYi" target="_blank">
+                <a class="btn btn-success btn-outline" href="https://github.com/Soldier233/RobotArmServer" target="_blank">
                     <i class="fa fa-cloud"> </i> 访问码云
                 </a>
-                <a class="btn btn-white btn-bitbucket" href="http://ruoyi.vip" target="_blank">
-                    <i class="fa fa-home"></i> 访问主页
-                </a>
+<!--                <a class="btn btn-white btn-bitbucket" href="http://ruoyi.vip" target="_blank">-->
+<!--                    <i class="fa fa-home"></i> 访问主页-->
+<!--                </a>-->
             </p>
         </div>
         <div class="col-sm-4">
@@ -67,12 +67,12 @@
                     <div class="ibox-content">
                         <p><i class="fa fa-send-o"></i> 官网：<a href="http://www.ruoyi.vip" target="_blank">http://www.ruoyi.vip</a>
                         </p>
-                        <p><i class="fa fa-qq"></i> QQ群：<s>满1389287</s> <s>满1679294</s> <s>满1529866</s> <s>满1772718</s> <s>满1366522</s> <s>满1382251</s> <s>满1145125</s> <s>满86752435</s> <s>满134072510</s> <s>满210336300</s> <s>满339522636</s> <s>满130035985</s> <s>满143151071</s> <s>满158781320</s> <s>满201531282</s> <s>满101526938</s> <s>满264355400</s> <s>满298522656</s> <s>满139845794</s>  <s>满185760789</s> <s>满175104288</s> <s>满174942938</s> <s>满287843737</s> <s>满232896766</s> <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=XwhV8deuZXt__yteR1clNanVSXzA-ugq&authKey=ezgwKqEZPdP%2FgC9I03OBkJb%2Biii8yvVfwrcQuu0%2FL6ILXcRdHYDBFKCXeoeBT0E6&noverify=0&group_code=180208928" target="_blank">180208928</a>
+                        <p><i class="fa fa-qq"></i> <a>QQ：3274650969</a>
                         </p>
-                        <p><i class="fa fa-weixin"></i> 微信：<a href="javascript:;">/ *若依</a>
+                        <p><i class="fa fa-weixin"></i> 微信：<a href="javascript:;">wxid_ky2x59y8i2s122</a>
                         </p>
-                        <p><i class="fa fa-credit-card"></i> 支付宝：<a href="javascript:;" class="支付宝信息">/ *若依</a>
-                        </p>
+<!--                        <p><i class="fa fa-credit-card"></i> 支付宝：<a href="javascript:;" class="支付宝信息">/ *若依</a>-->
+<!--                        </p>-->
                     </div>
                 </div>
             </div>
@@ -1793,7 +1793,7 @@
                             	请作者喝杯咖啡（点击图片放大）
                         </div>
                         <p id="pay-qrcode">
-                            <a href="javascript:;"><img th:src="@{/img/pay.png}" width="100%" alt="请使用手机支付宝或者微信扫码支付">
+                            <a href="javascript:;"><img th:src="@{/img/payme.png}" width="100%" alt="请使用手机支付宝或者微信扫码支付">
                             </a>
                         </p>
 

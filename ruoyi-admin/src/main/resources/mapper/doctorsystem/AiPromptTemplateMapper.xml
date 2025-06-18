@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AiPromptTemplateMapper">
+    
+    <resultMap type="AiPromptTemplate" id="AiPromptTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="modelId"    column="model_id"    />
+        <result property="templateName"    column="template_name"    />
+        <result property="templateContent"    column="template_content"    />
+        <result property="variables"    column="variables"    />
+        <result property="description"    column="description"    />
+        <result property="isDefault"    column="is_default"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAiPromptTemplateVo">
+        select id, model_id, template_name, template_content, variables, description, is_default, create_time, update_time from ai_prompt_template
+    </sql>
+
+    <select id="selectAiPromptTemplateList" parameterType="AiPromptTemplate" resultMap="AiPromptTemplateResult">
+        <include refid="selectAiPromptTemplateVo"/>
+        <where>  
+            <if test="modelId != null "> and model_id = #{modelId}</if>
+            <if test="templateName != null  and templateName != ''"> and template_name like concat('%', #{templateName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectAiPromptTemplateById" parameterType="Long" resultMap="AiPromptTemplateResult">
+        <include refid="selectAiPromptTemplateVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAiPromptTemplate" parameterType="AiPromptTemplate" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_prompt_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">model_id,</if>
+            <if test="templateName != null and templateName != ''">template_name,</if>
+            <if test="templateContent != null and templateContent != ''">template_content,</if>
+            <if test="variables != null">variables,</if>
+            <if test="description != null">description,</if>
+            <if test="isDefault != null">is_default,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">#{modelId},</if>
+            <if test="templateName != null and templateName != ''">#{templateName},</if>
+            <if test="templateContent != null and templateContent != ''">#{templateContent},</if>
+            <if test="variables != null">#{variables},</if>
+            <if test="description != null">#{description},</if>
+            <if test="isDefault != null">#{isDefault},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAiPromptTemplate" parameterType="AiPromptTemplate">
+        update ai_prompt_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="modelId != null">model_id = #{modelId},</if>
+            <if test="templateName != null and templateName != ''">template_name = #{templateName},</if>
+            <if test="templateContent != null and templateContent != ''">template_content = #{templateContent},</if>
+            <if test="variables != null">variables = #{variables},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAiPromptTemplateById" parameterType="Long">
+        delete from ai_prompt_template where id = #{id}
+    </delete>
+
+    <delete id="deleteAiPromptTemplateByIds" parameterType="String">
+        delete from ai_prompt_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

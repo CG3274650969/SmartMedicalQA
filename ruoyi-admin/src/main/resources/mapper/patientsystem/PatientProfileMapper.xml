@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PatientProfileMapper">
+    
+    <resultMap type="PatientProfile" id="PatientProfileResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="bloodType"    column="blood_type"    />
+        <result property="height"    column="height"    />
+        <result property="weight"    column="weight"    />
+        <result property="emergencyContact"    column="emergency_contact"    />
+        <result property="emergencyPhone"    column="emergency_phone"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <resultMap id="PatientProfilePatientConsultationResult" type="PatientProfile" extends="PatientProfileResult">
+        <collection property="patientConsultationList" ofType="PatientConsultation" column="id" select="selectPatientConsultationList" />
+    </resultMap>
+
+    <resultMap type="PatientConsultation" id="PatientConsultationResult">
+        <result property="id"    column="id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="departmentId"    column="department_id"    />
+        <result property="chiefComplaint"    column="chief_complaint"    />
+        <result property="symptoms"    column="symptoms"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPatientProfileVo">
+        select id, user_id, blood_type, height, weight, emergency_contact, emergency_phone, create_time, update_time from patient_profile
+    </sql>
+
+    <select id="selectPatientProfileList" parameterType="PatientProfile" resultMap="PatientProfileResult">
+        <include refid="selectPatientProfileVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="emergencyContact != null  and emergencyContact != ''"> and emergency_contact = #{emergencyContact}</if>
+        </where>
+    </select>
+    
+    <select id="selectPatientProfileById" parameterType="Long" resultMap="PatientProfilePatientConsultationResult">
+        select id, user_id, blood_type, height, weight, emergency_contact, emergency_phone, create_time, update_time
+        from patient_profile
+        where id = #{id}
+    </select>
+
+    <select id="selectPatientConsultationList" resultMap="PatientConsultationResult">
+        select id, patient_id, department_id, chief_complaint, symptoms, start_time, end_time, status, create_time
+        from patient_consultation
+        where patient_id = #{patient_id}
+    </select>
+
+    <insert id="insertPatientProfile" parameterType="PatientProfile" useGeneratedKeys="true" keyProperty="id">
+        insert into patient_profile
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="bloodType != null">blood_type,</if>
+            <if test="height != null">height,</if>
+            <if test="weight != null">weight,</if>
+            <if test="emergencyContact != null">emergency_contact,</if>
+            <if test="emergencyPhone != null">emergency_phone,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="bloodType != null">#{bloodType},</if>
+            <if test="height != null">#{height},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="emergencyContact != null">#{emergencyContact},</if>
+            <if test="emergencyPhone != null">#{emergencyPhone},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePatientProfile" parameterType="PatientProfile">
+        update patient_profile
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="bloodType != null">blood_type = #{bloodType},</if>
+            <if test="height != null">height = #{height},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="emergencyContact != null">emergency_contact = #{emergencyContact},</if>
+            <if test="emergencyPhone != null">emergency_phone = #{emergencyPhone},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePatientProfileById" parameterType="Long">
+        delete from patient_profile where id = #{id}
+    </delete>
+
+    <delete id="deletePatientProfileByIds" parameterType="String">
+        delete from patient_profile where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <delete id="deletePatientConsultationByPatientIds" parameterType="String">
+        delete from patient_consultation where patient_id in 
+        <foreach item="patientId" collection="array" open="(" separator="," close=")">
+            #{patientId}
+        </foreach>
+    </delete>
+
+    <delete id="deletePatientConsultationByPatientId" parameterType="Long">
+        delete from patient_consultation where patient_id = #{patientId}
+    </delete>
+
+    <insert id="batchPatientConsultation">
+        insert into patient_consultation( id, patient_id, department_id, chief_complaint, symptoms, start_time, end_time, status, create_time) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.patientId}, #{item.departmentId}, #{item.chiefComplaint}, #{item.symptoms}, #{item.startTime}, #{item.endTime}, #{item.status}, #{item.createTime})
+        </foreach>
+    </insert>
+
+</mapper>

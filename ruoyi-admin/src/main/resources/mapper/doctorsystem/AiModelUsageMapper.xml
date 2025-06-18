@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AiModelUsageMapper">
+    
+    <resultMap type="AiModelUsage" id="AiModelUsageResult">
+        <result property="id"    column="id"    />
+        <result property="modelId"    column="model_id"    />
+        <result property="date"    column="date"    />
+        <result property="usageCount"    column="usage_count"    />
+        <result property="avgResponseTime"    column="avg_response_time"    />
+        <result property="successRate"    column="success_rate"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAiModelUsageVo">
+        select id, model_id, date, usage_count, avg_response_time, success_rate, create_time, update_time from ai_model_usage
+    </sql>
+
+    <select id="selectAiModelUsageList" parameterType="AiModelUsage" resultMap="AiModelUsageResult">
+        <include refid="selectAiModelUsageVo"/>
+        <where>  
+            <if test="modelId != null "> and model_id = #{modelId}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="usageCount != null "> and usage_count = #{usageCount}</if>
+            <if test="avgResponseTime != null "> and avg_response_time = #{avgResponseTime}</if>
+            <if test="successRate != null "> and success_rate = #{successRate}</if>
+        </where>
+    </select>
+    
+    <select id="selectAiModelUsageById" parameterType="Long" resultMap="AiModelUsageResult">
+        <include refid="selectAiModelUsageVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAiModelUsage" parameterType="AiModelUsage" useGeneratedKeys="true" keyProperty="id">
+        insert into ai_model_usage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">model_id,</if>
+            <if test="date != null">date,</if>
+            <if test="usageCount != null">usage_count,</if>
+            <if test="avgResponseTime != null">avg_response_time,</if>
+            <if test="successRate != null">success_rate,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="modelId != null">#{modelId},</if>
+            <if test="date != null">#{date},</if>
+            <if test="usageCount != null">#{usageCount},</if>
+            <if test="avgResponseTime != null">#{avgResponseTime},</if>
+            <if test="successRate != null">#{successRate},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAiModelUsage" parameterType="AiModelUsage">
+        update ai_model_usage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="modelId != null">model_id = #{modelId},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="usageCount != null">usage_count = #{usageCount},</if>
+            <if test="avgResponseTime != null">avg_response_time = #{avgResponseTime},</if>
+            <if test="successRate != null">success_rate = #{successRate},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAiModelUsageById" parameterType="Long">
+        delete from ai_model_usage where id = #{id}
+    </delete>
+
+    <delete id="deleteAiModelUsageByIds" parameterType="String">
+        delete from ai_model_usage where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

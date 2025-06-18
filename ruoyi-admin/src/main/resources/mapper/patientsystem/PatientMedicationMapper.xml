@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PatientMedicationMapper">
+    
+    <resultMap type="PatientMedication" id="PatientMedicationResult">
+        <result property="id"    column="id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="medicationName"    column="medication_name"    />
+        <result property="dosage"    column="dosage"    />
+        <result property="frequency"    column="frequency"    />
+        <result property="purpose"    column="purpose"    />
+        <result property="startDate"    column="start_date"    />
+        <result property="endDate"    column="end_date"    />
+        <result property="doctorName"    column="doctor_name"    />
+        <result property="notes"    column="notes"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectPatientMedicationVo">
+        select id, patient_id, medication_name, dosage, frequency, purpose, start_date, end_date, doctor_name, notes, create_time from patient_medication
+    </sql>
+
+    <select id="selectPatientMedicationList" parameterType="PatientMedication" resultMap="PatientMedicationResult">
+        <include refid="selectPatientMedicationVo"/>
+        <where>  
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="purpose != null  and purpose != ''"> and purpose = #{purpose}</if>
+            <if test="startDate != null "> and start_date = #{startDate}</if>
+            <if test="doctorName != null  and doctorName != ''"> and doctor_name like concat('%', #{doctorName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectPatientMedicationById" parameterType="Long" resultMap="PatientMedicationResult">
+        <include refid="selectPatientMedicationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPatientMedication" parameterType="PatientMedication" useGeneratedKeys="true" keyProperty="id">
+        insert into patient_medication
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">patient_id,</if>
+            <if test="medicationName != null and medicationName != ''">medication_name,</if>
+            <if test="dosage != null">dosage,</if>
+            <if test="frequency != null">frequency,</if>
+            <if test="purpose != null">purpose,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="endDate != null">end_date,</if>
+            <if test="doctorName != null">doctor_name,</if>
+            <if test="notes != null">notes,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">#{patientId},</if>
+            <if test="medicationName != null and medicationName != ''">#{medicationName},</if>
+            <if test="dosage != null">#{dosage},</if>
+            <if test="frequency != null">#{frequency},</if>
+            <if test="purpose != null">#{purpose},</if>
+            <if test="startDate != null">#{startDate},</if>
+            <if test="endDate != null">#{endDate},</if>
+            <if test="doctorName != null">#{doctorName},</if>
+            <if test="notes != null">#{notes},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePatientMedication" parameterType="PatientMedication">
+        update patient_medication
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="medicationName != null and medicationName != ''">medication_name = #{medicationName},</if>
+            <if test="dosage != null">dosage = #{dosage},</if>
+            <if test="frequency != null">frequency = #{frequency},</if>
+            <if test="purpose != null">purpose = #{purpose},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="doctorName != null">doctor_name = #{doctorName},</if>
+            <if test="notes != null">notes = #{notes},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePatientMedicationById" parameterType="Long">
+        delete from patient_medication where id = #{id}
+    </delete>
+
+    <delete id="deletePatientMedicationByIds" parameterType="String">
+        delete from patient_medication where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
