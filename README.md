@@ -1,5 +1,5 @@
 <p align="center">
-	<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-dd77653d7c9f197dd9d93684f3c8dcfbab6.png">
+	<img alt="logo" src="ruoyi-admin/src/main/resources/static/img/skd.png">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">智能医疗问答系统 v4.8.1</h1>
 <h4 align="center">基于SpringBoot开发的轻量级Java快速开发框架</h4>
@@ -52,44 +52,44 @@
 
 <table>
     <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-42e518aa72a24d228427a1261cb3679f395.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-7f20dd0edba25e5187c5c4dd3ec7d3d9797.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/1.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/2.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-2dae3d87f6a8ca05057db059cd9a411d51d.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-ea4d98423471e55fba784694e45d12bd4bb.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/3.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/4.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-7f6c6e9f5873efca09bd2870ee8468b8fce.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-c708b65f2c382a03f69fe1efa8d341e6cff.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/5.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/6.png"/></td>
     </tr>
 	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-9ab586c47dd5c7b92bca0d727962c90e3b8.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-ef954122a2080e02013112db21754b955c6.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/7.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/8.png"/></td>
     </tr>	 
     <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-088edb4d531e122415a1e2342bccb1a9691.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-f886fe19bd820c0efae82f680223cac196c.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/9.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/10.png"/></td>
     </tr>
 	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-c7a2eb71fa65d6e660294b4bccca613d638.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-e60137fb0787defe613bd83331dc4755a70.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/11.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/12.png"/></td>
     </tr>
 	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-7c51c1b5758f0a0f92ed3c60469b7526f9f.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-15181aed45bb2461aa97b594cbf2f86ea5f.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/13.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/14.png"/></td>
     </tr>
 	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-83326ad52ea63f67233d126226738054d98.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-3bd6d31e913b70df00107db51d64ef81df7.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/15.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/16.png"/></td>
     </tr>
 	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-70a2225836bc82042a6785edf6299e2586a.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-0184d6ab01fdc6667a14327fcaf8b46345d.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/17.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/18.png"/></td>
     </tr>
 	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-64d8086dc2c02c8f71170290482f7640098.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-5e4daac0bb59612c5038448acbcef235e3a.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/19.png"/></td>
+        <td><img src="ruoyi-admin/src/main/resources/static/example_image/20.png"/></td>
     </tr>
 </table>
 
